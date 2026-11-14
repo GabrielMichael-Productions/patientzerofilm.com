@@ -1,1561 +1,331 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Patient Zero — A Film by Gabriel Michael</title>
-  <meta name="description" content="Patient Zero — Written and Directed by Gabriel Michael, Executive Producer Bill Booz, Starring Rio Van Zant & Bill Booz. A film from childhood to adulthood and how we survive it." />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-void: #0B0B0D;
-      --bg-basalt: #151417;
-      --bg-basalt-hover: #1D1B20;
-      --text-parchment: #F2EFE9;
-      --text-dust: #A69E94;
-      --accent-amber: #E07A2E;
-      --accent-gold: #F4B860;
-      --accent-crimson: #3D1512;
-      --border-subtle: rgba(242, 239, 233, 0.10);
-      --border-amber: rgba(224, 122, 46, 0.45);
-      --world-glow: rgba(61, 21, 18, 0.35);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      background-color: var(--bg-void);
-      color: var(--text-parchment);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-
-    body {
-      background-color: var(--bg-void);
-      color: var(--text-parchment);
-      line-height: 1.65;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    /* Ambient Starfield / Ember Canvas */
-    #ambient-canvas {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.65;
-    }
-
-    /* Top Sticky Navigation */
-    header.site-nav {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: rgba(11, 11, 13, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-subtle);
-      padding: 0.9rem 1.5rem;
-    }
-
-    .nav-inner {
-      max-width: 1160px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
-    .brand-mark {
-      font-family: 'Cinzel', serif;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      font-size: 1.05rem;
-      color: var(--text-parchment);
-      text-decoration: none;
-      text-transform: uppercase;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    .nav-links a {
-      color: var(--text-dust);
-      text-decoration: none;
-      font-size: 0.82rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: color 0.2s ease;
-    }
-
-    .nav-links a:hover {
-      color: var(--accent-gold);
-    }
-
-    .nav-pill {
-      background: rgba(224, 122, 46, 0.14);
-      border: 1px solid var(--border-amber);
-      color: var(--accent-gold) !important;
-      padding: 0.45rem 0.95rem;
-      border-radius: 999px;
-      font-weight: 500;
-    }
-
-    @media (max-width: 768px) {
-      .nav-links a:not(.nav-pill) {
-        display: none;
-      }
-    }
-
-    /* Main Container */
-    main {
-      position: relative;
-      z-index: 1;
-    }
-
-    section {
-      padding: 5.5rem 1.5rem;
-      max-width: 1160px;
-      margin: 0 auto;
-    }
-
-    .section-eyebrow {
-      font-size: 0.75rem;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--accent-amber);
-      margin-bottom: 0.65rem;
-      display: block;
-      font-weight: 600;
-    }
-
-    h2.section-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(1.75rem, 3.2vw, 2.5rem);
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      color: var(--text-parchment);
-      margin-bottom: 1.5rem;
-      line-height: 1.2;
-    }
-
-    /* HERO: Interactive Film Poster */
-    .hero-wrapper {
-      position: relative;
-      padding: 3.5rem 1.5rem 5rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .hero-backlight {
-      position: absolute;
-      top: 10%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(820px, 95vw);
-      height: 520px;
-      background: radial-gradient(circle, rgba(224, 122, 46, 0.18) 0%, rgba(61, 21, 18, 0.28) 42%, rgba(11, 11, 13, 0) 75%);
-      filter: blur(40px);
-      pointer-events: none;
-      z-index: -1;
-      transition: transform 0.3s ease-out;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      gap: 3.25rem;
-      align-items: center;
-    }
-
-    @media (max-width: 920px) {
-      .hero-grid {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-      }
-    }
-
-    /* Poster Card Frame */
-    .poster-stage {
-      position: relative;
-      border-radius: 10px;
-      overflow: hidden;
-      background: var(--bg-basalt);
-      border: 1px solid rgba(244, 184, 96, 0.22);
-      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.85), 0 0 50px rgba(61, 21, 18, 0.45);
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
-    }
-
-    .poster-stage:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 34px 90px rgba(0, 0, 0, 0.92), 0 0 65px rgba(224, 122, 46, 0.25);
-    }
-
-    .poster-stage img {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: cover;
-    }
-
-    /* Fallback poster visual if poster.jpg is not uploaded yet */
-    .poster-fallback {
-      aspect-ratio: 16 / 10;
-      background: linear-gradient(180deg, #4A1811 0%, #8C3319 42%, #231815 72%, #0B0B0D 100%);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 2.25rem;
-      text-align: center;
-      position: relative;
-    }
-
-    .poster-fallback .pf-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(2rem, 4vw, 3.2rem);
-      letter-spacing: 0.16em;
-      color: #0B0B0D;
-      text-shadow: 0 2px 18px rgba(244, 184, 96, 0.45);
-      font-weight: 700;
-    }
-
-    .poster-fallback .pf-note {
-      font-size: 0.78rem;
-      color: var(--text-parchment);
-      background: rgba(11, 11, 13, 0.65);
-      padding: 0.6rem 1rem;
-      border-radius: 6px;
-      border: 1px solid var(--border-subtle);
-      max-width: 360px;
-      margin: 0 auto;
-    }
-
-    /* Hero Copy & Cinema Billing Block */
-    .hero-copy {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-
-    .badge-origin {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.75rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--accent-gold);
-      font-weight: 600;
-    }
-
-    .badge-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--accent-amber);
-      box-shadow: 0 0 10px var(--accent-amber);
-    }
-
-    h1.film-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(2.6rem, 5vw, 4.1rem);
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      line-height: 1.05;
-      text-transform: uppercase;
-      color: var(--text-parchment);
-    }
-
-    /* Classic Cinema One-Sheet Billing Block */
-    .billing-block {
-      border-top: 1px solid var(--border-subtle);
-      border-bottom: 1px solid var(--border-subtle);
-      padding: 0.9rem 0;
-      font-size: 0.85rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-dust);
-      line-height: 1.7;
-    }
-
-    .billing-block span.credit-role {
-      font-size: 0.68rem;
-      letter-spacing: 0.14em;
-      color: var(--text-dust);
-      margin-right: 0.25rem;
-    }
-
-    .billing-block strong.credit-name {
-      color: var(--text-parchment);
-      font-weight: 600;
-      letter-spacing: 0.1em;
-    }
-
-    .tagline-main {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.35rem, 2.2vw, 1.7rem);
-      font-style: italic;
-      color: var(--accent-gold);
-      line-height: 1.35;
-    }
-
-    .hook-line {
-      font-size: 1.05rem;
-      font-weight: 500;
-      color: var(--text-parchment);
-      border-left: 2px solid var(--accent-amber);
-      padding-left: 1rem;
-    }
-
-    .logline-box {
-      background: var(--bg-basalt);
-      border: 1px solid var(--border-subtle);
-      padding: 1.25rem 1.4rem;
-      border-radius: 8px;
-    }
-
-    .logline-label {
-      font-size: 0.7rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--accent-amber);
-      display: block;
-      margin-bottom: 0.35rem;
-      font-weight: 600;
-    }
-
-    .logline-box p {
-      font-size: 0.98rem;
-      color: var(--text-parchment);
-      line-height: 1.6;
-    }
-
-    /* Seed & Spark January Banner */
-    .campaign-status-banner {
-      background: linear-gradient(135deg, rgba(224, 122, 46, 0.18) 0%, rgba(61, 21, 18, 0.35) 100%);
-      border: 1px solid var(--border-amber);
-      border-radius: 8px;
-      padding: 1.15rem 1.35rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.65rem;
-    }
-
-    .campaign-status-text {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--accent-gold);
-      letter-spacing: 0.02em;
-    }
-
-    .campaign-sub-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      align-items: center;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--accent-amber);
-      color: #0B0B0D;
-      font-weight: 600;
-      font-size: 0.85rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.75rem 1.35rem;
-      border-radius: 6px;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: background 0.2s ease, transform 0.2s ease;
-    }
-
-    .btn-primary:hover {
-      background: var(--accent-gold);
-      transform: translateY(-1px);
-    }
-
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: transparent;
-      color: var(--text-parchment);
-      font-weight: 500;
-      font-size: 0.82rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0.72rem 1.2rem;
-      border-radius: 6px;
-      text-decoration: none;
-      border: 1px solid var(--border-subtle);
-      cursor: pointer;
-      transition: border-color 0.2s ease, color 0.2s ease;
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--accent-gold);
-      color: var(--accent-gold);
-    }
-
-    /* Divider */
-    .cinema-divider {
-      max-width: 1160px;
-      margin: 0 auto;
-      height: 1px;
-      background: linear-gradient(90deg, transparent 0%, var(--border-subtle) 50%, transparent 100%);
-    }
-
-    /* DIRECTOR'S STATEMENT & TRUE STORY */
-    .story-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 3rem;
-      align-items: start;
-    }
-
-    @media (max-width: 860px) {
-      .story-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .statement-prose p {
-      font-size: 1.05rem;
-      color: var(--text-parchment);
-      margin-bottom: 1.35rem;
-      line-height: 1.8;
-    }
-
-    .statement-prose p.lead-quote {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.55rem;
-      line-height: 1.45;
-      color: var(--accent-gold);
-    }
-
-    .pillars-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .pillar-card {
-      background: var(--bg-basalt);
-      border: 1px solid var(--border-subtle);
-      border-radius: 8px;
-      padding: 1.35rem;
-      transition: border-color 0.25s ease;
-    }
-
-    .pillar-card:hover {
-      border-color: var(--border-amber);
-    }
-
-    .pillar-card h3 {
-      font-family: 'Cinzel', serif;
-      font-size: 1rem;
-      letter-spacing: 0.14em;
-      color: var(--accent-amber);
-      margin-bottom: 0.45rem;
-    }
-
-    .pillar-card p {
-      font-size: 0.92rem;
-      color: var(--text-dust);
-      line-height: 1.6;
-    }
-
-    /* INTERACTIVE FOUR WORLDS */
-    .worlds-section {
-      position: relative;
-      border-radius: 14px;
-      padding: 3.5rem 2.5rem;
-      background: var(--bg-basalt);
-      border: 1px solid var(--border-subtle);
-      transition: box-shadow 0.5s ease, border-color 0.5s ease;
-    }
-
-    @media (max-width: 640px) {
-      .worlds-section {
-        padding: 2.25rem 1.25rem;
-      }
-    }
-
-    .world-tabs {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.75rem;
-      margin-bottom: 2rem;
-    }
-
-    @media (max-width: 680px) {
-      .world-tabs {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    .world-tab {
-      background: rgba(11, 11, 13, 0.7);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-dust);
-      padding: 0.9rem 1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      text-align: left;
-      transition: all 0.25s ease;
-      font-family: 'Cinzel', serif;
-    }
-
-    .world-tab span.num {
-      display: block;
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      color: var(--accent-amber);
-      margin-bottom: 0.2rem;
-    }
-
-    .world-tab strong {
-      font-size: 0.98rem;
-      letter-spacing: 0.08em;
-      color: var(--text-parchment);
-    }
-
-    .world-tab.active {
-      border-color: var(--accent-gold);
-      background: rgba(224, 122, 46, 0.12);
-      box-shadow: 0 0 24px rgba(224, 122, 46, 0.15);
-    }
-
-    .world-display {
-      display: grid;
-      grid-template-columns: 1.3fr 0.7fr;
-      gap: 2rem;
-      align-items: center;
-      min-height: 180px;
-    }
-
-    @media (max-width: 768px) {
-      .world-display {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .world-display h3 {
-      font-family: 'Cinzel', serif;
-      font-size: 1.5rem;
-      color: var(--text-parchment);
-      margin-bottom: 0.75rem;
-      letter-spacing: 0.08em;
-    }
-
-    .world-display p {
-      font-size: 1.05rem;
-      color: var(--text-parchment);
-      line-height: 1.7;
-    }
-
-    .world-visual-spec {
-      background: rgba(11, 11, 13, 0.8);
-      border: 1px solid var(--border-subtle);
-      border-radius: 8px;
-      padding: 1.25rem;
-    }
-
-    .world-visual-spec span {
-      display: block;
-      font-size: 0.72rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent-gold);
-      margin-bottom: 0.4rem;
-    }
-
-    .world-visual-spec p {
-      font-size: 0.92rem;
-      color: var(--text-dust);
-    }
-
-    /* CAST & CREW */
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.25rem;
-    }
-
-    .team-card {
-      background: var(--bg-basalt);
-      border: 1px solid var(--border-subtle);
-      border-radius: 8px;
-      padding: 1.5rem;
-      transition: transform 0.25s ease, border-color 0.25s ease;
-    }
-
-    .team-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--border-amber);
-    }
-
-    .team-role {
-      font-size: 0.72rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent-amber);
-      font-weight: 600;
-      display: block;
-      margin-bottom: 0.4rem;
-    }
-
-    .team-name {
-      font-family: 'Cinzel', serif;
-      font-size: 1.2rem;
-      color: var(--text-parchment);
-      margin-bottom: 0.35rem;
-    }
-
-    .team-detail {
-      font-size: 0.88rem;
-      color: var(--text-dust);
-    }
-
-    /* CAMPAIGN, BUDGET & INTERACTIVE TIERS */
-    .budget-overview {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      margin-bottom: 3rem;
-    }
-
-    @media (max-width: 820px) {
-      .budget-overview {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .budget-box {
-      background: var(--bg-basalt);
-      border: 1px solid var(--border-subtle);
-      border-radius: 10px;
-      padding: 1.85rem;
-    }
-
-    .budget-box h3 {
-      font-family: 'Cinzel', serif;
-      font-size: 1.2rem;
-      color: var(--accent-gold);
-      margin-bottom: 0.85rem;
-      letter-spacing: 0.06em;
-    }
-
-    .budget-box p {
-      font-size: 0.96rem;
-      color: var(--text-parchment);
-      margin-bottom: 1rem;
-      line-height: 1.7;
-    }
-
-    .meter-track {
-      background: rgba(242, 239, 233, 0.08);
-      border-radius: 999px;
-      height: 12px;
-      overflow: hidden;
-      margin: 1.1rem 0 0.6rem;
-      position: relative;
-    }
-
-    .meter-fill {
-      width: 37.5%;
-      height: 100%;
-      background: linear-gradient(90deg, var(--accent-amber), var(--accent-gold));
-      border-radius: 999px;
-    }
-
-    .meter-labels {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.78rem;
-      color: var(--text-dust);
-    }
-
-    /* Interactive Perks Selector */
-    .perks-header {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .poster-perk-note {
-      background: rgba(244, 184, 96, 0.12);
-      border: 1px solid rgba(244, 184, 96, 0.35);
-      color: var(--accent-gold);
-      padding: 0.5rem 0.95rem;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 500;
-    }
-
-    .tiers-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.25rem;
-    }
-
-    .tier-card {
-      background: var(--bg-basalt);
-      border: 1px solid var(--border-subtle);
-      border-radius: 10px;
-      padding: 1.65rem;
-      cursor: pointer;
-      transition: all 0.25s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .tier-card:hover,
-    .tier-card.selected {
-      border-color: var(--accent-amber);
-      background: var(--bg-basalt-hover);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
-    }
-
-    .tier-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 0.75rem;
-    }
-
-    .tier-price {
-      font-family: 'Cinzel', serif;
-      font-size: 1.65rem;
-      font-weight: 700;
-      color: var(--accent-gold);
-    }
-
-    .tier-name {
-      font-size: 0.78rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--text-dust);
-    }
-
-    .poster-included-badge {
-      display: inline-block;
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: rgba(224, 122, 46, 0.16);
-      color: var(--accent-gold);
-      border: 1px solid rgba(224, 122, 46, 0.4);
-      padding: 0.25rem 0.6rem;
-      border-radius: 4px;
-      margin-bottom: 0.85rem;
-      font-weight: 600;
-    }
-
-    .tier-list {
-      list-style: none;
-      margin-bottom: 1.25rem;
-    }
-
-    .tier-list li {
-      font-size: 0.92rem;
-      color: var(--text-parchment);
-      padding: 0.35rem 0;
-      border-bottom: 1px solid rgba(242, 239, 233, 0.05);
-      display: flex;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
-
-    .tier-list li::before {
-      content: "✦";
-      color: var(--accent-amber);
-      font-size: 0.75rem;
-      margin-top: 0.15rem;
-    }
-
-    /* PRODUCTION TIMELINE */
-    .timeline-row {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 1rem;
-      margin-top: 2rem;
-    }
-
-    @media (max-width: 900px) {
-      .timeline-row {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .timeline-step {
-      background: var(--bg-basalt);
-      border: 1px solid var(--border-subtle);
-      border-radius: 8px;
-      padding: 1.25rem;
-    }
-
-    .timeline-step.highlight {
-      border-color: var(--border-amber);
-      background: rgba(224, 122, 46, 0.08);
-    }
-
-    .timeline-date {
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent-amber);
-      font-weight: 600;
-      display: block;
-      margin-bottom: 0.35rem;
-    }
-
-    .timeline-step h4 {
-      font-family: 'Cinzel', serif;
-      font-size: 1rem;
-      color: var(--text-parchment);
-      margin-bottom: 0.35rem;
-    }
-
-    .timeline-step p {
-      font-size: 0.86rem;
-      color: var(--text-dust);
-    }
-
-    /* CHILDHELP CAUSE CALLOUT */
-    .cause-panel {
-      background: linear-gradient(135deg, #151417 0%, #211413 100%);
-      border: 1px solid var(--border-amber);
-      border-radius: 12px;
-      padding: 2.75rem;
-      display: grid;
-      grid-template-columns: 0.35fr 0.65fr;
-      gap: 2.5rem;
-      align-items: center;
-    }
-
-    @media (max-width: 768px) {
-      .cause-panel {
-        grid-template-columns: 1fr;
-        padding: 1.85rem;
-      }
-    }
-
-    .cause-stat {
-      text-align: center;
-      border-right: 1px solid var(--border-subtle);
-      padding-right: 1.5rem;
-    }
-
-    @media (max-width: 768px) {
-      .cause-stat {
-        border-right: none;
-        border-bottom: 1px solid var(--border-subtle);
-        padding-right: 0;
-        padding-bottom: 1.5rem;
-      }
-    }
-
-    .cause-stat .big-num {
-      font-family: 'Cinzel', serif;
-      font-size: 3.75rem;
-      font-weight: 700;
-      color: var(--accent-gold);
-      line-height: 1;
-      display: block;
-    }
-
-    .cause-stat span {
-      font-size: 0.8rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--text-dust);
-      margin-top: 0.5rem;
-      display: block;
-    }
-
-    /* MODAL FOR JANUARY LAUNCH NOTIFICATION / POSTER PREVIEW */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.82);
-      backdrop-filter: blur(6px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      padding: 1.25rem;
-    }
-
-    .modal-backdrop.open {
-      display: flex;
-    }
-
-    .modal-card {
-      background: var(--bg-basalt);
-      border: 1px solid var(--border-amber);
-      border-radius: 12px;
-      max-width: 500px;
-      width: 100%;
-      padding: 2rem;
-      position: relative;
-      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.9);
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 1rem;
-      right: 1.15rem;
-      background: none;
-      border: none;
-      color: var(--text-dust);
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-
-    .modal-close:hover {
-      color: var(--text-parchment);
-    }
-
-    /* FOOTER */
-    footer {
-      border-top: 1px solid var(--border-subtle);
-      padding: 3.25rem 1.5rem;
-      text-align: center;
-      color: var(--text-dust);
-      font-size: 0.88rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    footer a {
-      color: var(--accent-gold);
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-  </style>
-</head>
-<body>
-  <canvas id="ambient-canvas"></canvas>
-
-  <!-- Sticky Minimal Header -->
-  <header class="site-nav">
-    <div class="nav-inner">
-      <a href="#top" class="brand-mark">Patient Zero</a>
-      <nav class="nav-links">
-        <a href="#story">The Story</a>
-        <a href="#worlds">Four Worlds</a>
-        <a href="#team">Cast &amp; Crew</a>
-        <a href="#campaign">Perks &amp; Budget</a>
-        <a href="#cause">Childhelp</a>
-        <a href="#campaign" class="nav-pill">January Launch</a>
-      </nav>
-    </div>
-  </header>
-
-  <main id="top">
-    <!-- HERO: INTERACTIVE FILM POSTER -->
-    <div class="hero-wrapper">
-      <div class="hero-backlight" id="hero-backlight"></div>
-      <div class="hero-grid">
-        <!-- Left: Film Poster Artwork -->
-        <div class="poster-stage" id="poster-card">
-          <img
-            src="poster.jpg"
-            alt="Patient Zero Official Film Poster — Rio Van Zant kneeling in the Sonoran Desert beneath a falling meteor"
-            onerror="this.style.display='none'; document.getElementById('poster-fallback').style.display='flex';"
-          />
-          <div class="poster-fallback" id="poster-fallback" style="display:none;">
-            <div class="pf-title">PATIENT ZERO</div>
-            <div class="pf-note">
-              Upload your cover poster image as <strong>poster.jpg</strong> in the same GitHub folder as <code>index.html</code> to display the full artwork here.
-            </div>
-            <div style="font-size:0.75rem; letter-spacing:0.15em; color:#A69E94;">
-              GABRIEL MICHAEL PRODUCTIONS &bull; TUCSON, ARIZONA
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: Cinema Header, Billing Block, Logline & Seed&Spark Announcement -->
-        <div class="hero-copy">
-          <div class="badge-origin">
-            <span class="badge-dot"></span>
-            Based on a True Story &bull; Tucson, Arizona
-          </div>
-
-          <h1 class="film-title">Patient Zero</h1>
-
-          <!-- Required Header Billing Block -->
-          <div class="billing-block">
-            <div><span class="credit-role">Written and Directed by</span> <strong class="credit-name">Gabriel Michael</strong></div>
-            <div><span class="credit-role">Executive Producer</span> <strong class="credit-name">Bill Booz</strong></div>
-            <div><span class="credit-role">Starring</span> <strong class="credit-name">Rio Van Zant &amp; Bill Booz</strong></div>
-          </div>
-
-          <p class="tagline-main">
-            &ldquo;A film from childhood to adulthood and how we survive it.&rdquo;
-          </p>
-
-          <p class="hook-line">
-            She was leaving tomorrow. A meteor showed her what she was running from.
-          </p>
-
-          <div class="logline-box">
-            <span class="logline-label">Logline</span>
-            <p>
-              On her last ride with her best friend, a woman touches a fallen meteor and gets lost in the one place she&rsquo;s never been able escape &mdash; her own mind.
-            </p>
-          </div>
-
-          <!-- Seed & Spark January Status Banner -->
-          <div class="campaign-status-banner">
-            <div class="campaign-status-text">
-              Seed &amp; Spark Campaign for funding this film is going live in January!
-            </div>
-            <div class="campaign-sub-actions">
-              <button type="button" class="btn-primary" onclick="openLaunchModal('General Campaign Updates')">
-                Get Launch Alert
-              </button>
-              <a href="#campaign" class="btn-secondary">Explore Perks ($5 &ndash; $500+)</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="cinema-divider"></div>
-
-    <!-- DIRECTOR'S STATEMENT & THEMATIC PILLARS -->
-    <section id="story">
-      <span class="section-eyebrow">Based on a True Story</span>
-      <h2 class="section-title">Surviving the Lens We Inherited</h2>
-
-      <div class="story-grid">
-        <div class="statement-prose">
-          <p class="lead-quote">
-            A story of surviving abuse, C-PTSD, depression, undiagnosed ADHD, and how life looks through the lens that was indoctrinated until it was the core identity &mdash; a mistake, something that should never have been allowed to exist, yet it&rsquo;s here: Patient Zero.
-          </p>
-          <p>
-            Zoe believes she isn&rsquo;t good enough, so she is leaving the one person who has always shown up. On one last ride with her best friend Thomas, a fallen meteor pulls her inward through four shifting worlds of her own subconscious, forcing her to confront the belief she inherited as a child.
-          </p>
-          <p>
-            Help us tell this story from a perspective rarely seen on screen. My hope is this film will show the complexity of one person&rsquo;s existence and how our compassion for one another is our anchor to something greater than ourselves.
-          </p>
-        </div>
-
-        <div class="pillars-stack">
-          <div class="pillar-card">
-            <h3>The Lie</h3>
-            <p>The beliefs we inherit as children become the walls of the room we live in.</p>
-          </div>
-          <div class="pillar-card">
-            <h3>The Loop</h3>
-            <p>Lost, searching, and unheard, she keeps repeating the same search in new places.</p>
-          </div>
-          <div class="pillar-card">
-            <h3>The Voice</h3>
-            <p>Someone who calls her name is the one thing that can bring her back.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="cinema-divider"></div>
-
-    <!-- INTERACTIVE FOUR WORLDS EXPLORER -->
-    <section id="worlds">
-      <span class="section-eyebrow">Visual Architecture &bull; Practical Effects First</span>
-      <h2 class="section-title">Inside Zoe&rsquo;s Mind: The Four Worlds</h2>
-
-      <div class="worlds-section" id="worlds-container">
-        <div class="world-tabs" role="tablist">
-          <button class="world-tab active" data-world="desert" onclick="selectWorld('desert', this)">
-            <span class="num">WORLD I</span>
-            <strong>Desert</strong>
-          </button>
-          <button class="world-tab" data-world="lake" onclick="selectWorld('lake', this)">
-            <span class="num">WORLD II</span>
-            <strong>Lake</strong>
-          </button>
-          <button class="world-tab" data-world="hospital" onclick="selectWorld('hospital', this)">
-            <span class="num">WORLD III</span>
-            <strong>Hospital</strong>
-          </button>
-          <button class="world-tab" data-world="void" onclick="selectWorld('void', this)">
-            <span class="num">WORLD IV</span>
-            <strong>Void</strong>
-          </button>
-        </div>
-
-        <div class="world-display" id="world-display">
-          <div>
-            <h3 id="world-heading">I. The Desert</h3>
-            <p id="world-desc">
-              Alone and lost in the Sonoran night. Zoe searches for Thomas as the landscape shifts around her without her reacting &mdash; the disorienting first step inside a mind trying to outrun itself.
-            </p>
-          </div>
-          <div class="world-visual-spec">
-            <span>Cinematography &amp; Approach</span>
-            <p id="world-spec">
-              Real night exteriors in Tucson. Grounded desert terrain, minimal dialogue, and atmospheric silence carried by practical lighting.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="cinema-divider"></div>
-
-    <!-- CAST & CREW -->
-    <section id="team">
-      <span class="section-eyebrow">Tucson, Arizona Production</span>
-      <h2 class="section-title">Cast &amp; Crew</h2>
-
-      <div class="team-grid">
-        <div class="team-card">
-          <span class="team-role">Writer &bull; Director &bull; Producer &bull; Editor</span>
-          <div class="team-name">Gabriel Michael</div>
-          <div class="team-detail">Gabriel Michael Productions</div>
-        </div>
-
-        <div class="team-card">
-          <span class="team-role">Executive Producer &bull; &ldquo;Thomas&rdquo;</span>
-          <div class="team-name">Bill Booz</div>
-          <div class="team-detail">Total Return Life Films</div>
-        </div>
-
-        <div class="team-card">
-          <span class="team-role">Lead Cast &bull; &ldquo;Zoe&rdquo;</span>
-          <div class="team-name">Rio Van Zant</div>
-          <div class="team-detail">Lead Role</div>
-        </div>
-
-        <div class="team-card">
-          <span class="team-role">Director of Photography</span>
-          <div class="team-name">Michael Redd</div>
-          <div class="team-detail">Cinematography &amp; Color</div>
-        </div>
-
-        <div class="team-card">
-          <span class="team-role">B-Camera &amp; Behind The Scenes</span>
-          <div class="team-name">Charmaine</div>
-          <div class="team-detail">Camera &amp; Documentation</div>
-        </div>
-
-        <div class="team-card">
-          <span class="team-role">Production Assistant</span>
-          <div class="team-name">Victor</div>
-          <div class="team-detail">On-Set Operations</div>
-        </div>
-      </div>
-    </section>
-
-    <div class="cinema-divider"></div>
-
-    <!-- CAMPAIGN, BUDGET & INTERACTIVE TIERS -->
-    <section id="campaign">
-      <span class="section-eyebrow">Crowdfunding &amp; Production Roadmap</span>
-      <h2 class="section-title">Seed &amp; Spark Campaign &amp; Supporter Tiers</h2>
-
-      <div class="campaign-status-banner" style="margin-bottom: 2.5rem;">
-        <div class="campaign-status-text">
-          Seed &amp; Spark Campaign for funding this film is going live in January!
-        </div>
-        <p style="font-size: 0.94rem; color: var(--text-parchment);">
-          Every bit helps &mdash; all funds go directly toward cast and crew. The more we raise, the better our cast and crew get paid.
-        </p>
-      </div>
-
-      <div class="budget-overview">
-        <div class="budget-box">
-          <h3>A Film That Scales With Every Dollar</h3>
-          <p>
-            We have a <strong>$1,500 base loan</strong> in place so <em>Patient Zero</em> gets made no matter what &mdash; covering food, props, essentials, and minimum rates.
-          </p>
-          <p>
-            We have set up our Seed &amp; Spark campaign with a minimum goal to deliver the film and stretch goals up to our <strong>$4,000 full plan</strong> ($2,500 raised on top of the base) to increase pay for cast and crew, provide a higher crafty budget, and fund festival submissions, marketing, and a local Tucson screening.
-          </p>
-          <div class="meter-track">
-            <div class="meter-fill"></div>
-          </div>
-          <div class="meter-labels">
-            <span>$1,500 Base Secured</span>
-            <span>$4,000 Full Cast/Crew &amp; Festival Plan</span>
-          </div>
-        </div>
-
-        <div class="budget-box">
-          <h3>Shoot &amp; Distribution Path</h3>
-          <p>
-            <strong>Shooting in and around Tucson in early Spring 2027</strong> across real desert, lake, and corridor locations, followed by post-production, a festival circuit run, and a local Tucson screening before its final destination in streaming distribution.
-          </p>
-          <p style="color: var(--text-dust); font-size: 0.9rem;">
-            Seed &amp; Spark releases campaign funds once 80% of the goal is reached. Every backer tier below includes rewards designed to bring you directly into the making of this film.
-          </p>
-        </div>
-      </div>
-
-      <!-- Interactive Perks Section -->
-      <div class="perks-header">
-        <div>
-          <span class="section-eyebrow" style="margin-bottom:0.25rem;">Backer Rewards</span>
-          <h3 style="font-family:'Cinzel', serif; font-size:1.45rem; color:var(--text-parchment);">
-            Choose a Tier to Preview Rewards
-          </h3>
-        </div>
-        <div class="poster-perk-note">
-          ✦ Signed Digital Poster included with all tiers $25 and above
-        </div>
-      </div>
-
-      <div class="tiers-grid">
-        <!-- $5 Tier -->
-        <div class="tier-card" onclick="selectTier(this, '$5 — The Spark')">
-          <div>
-            <div class="tier-top">
-              <span class="tier-price">$5</span>
-              <span class="tier-name">The Spark</span>
-            </div>
-            <ul class="tier-list">
-              <li>Personal digital thank-you update from the production</li>
-            </ul>
-          </div>
-          <button type="button" class="btn-secondary" style="width:100%;" onclick="event.stopPropagation(); openLaunchModal('$5 — The Spark')">
-            Notify Me at Launch
-          </button>
-        </div>
-
-        <!-- $25 Tier -->
-        <div class="tier-card selected" onclick="selectTier(this, '$25 — Supporter')">
-          <div>
-            <div class="tier-top">
-              <span class="tier-price">$25</span>
-              <span class="tier-name">Supporter</span>
-            </div>
-            <div class="poster-included-badge">Includes Signed Digital Poster</div>
-            <ul class="tier-list">
-              <li><strong>Signed Digital Poster</strong> of <em>Patient Zero</em></li>
-              <li>Supporter credit in the film</li>
-            </ul>
-          </div>
-          <button type="button" class="btn-primary" style="width:100%;" onclick="event.stopPropagation(); openLaunchModal('$25 — Supporter')">
-            Notify Me at Launch
-          </button>
-        </div>
-
-        <!-- $50 Tier -->
-        <div class="tier-card" onclick="selectTier(this, '$50 — Screening Pass')">
-          <div>
-            <div class="tier-top">
-              <span class="tier-price">$50</span>
-              <span class="tier-name">Screening Pass</span>
-            </div>
-            <div class="poster-included-badge">Includes Signed Digital Poster</div>
-            <ul class="tier-list">
-              <li><strong>Signed Digital Poster</strong> of <em>Patient Zero</em></li>
-              <li>Supporter credit in the film</li>
-              <li>1 ticket to the local Tucson screening</li>
-            </ul>
-          </div>
-          <button type="button" class="btn-secondary" style="width:100%;" onclick="event.stopPropagation(); openLaunchModal('$50 — Screening Pass')">
-            Notify Me at Launch
-          </button>
-        </div>
-
-        <!-- $100 Tier -->
-        <div class="tier-card" onclick="selectTier(this, '$100 — Special Thanks')">
-          <div>
-            <div class="tier-top">
-              <span class="tier-price">$100</span>
-              <span class="tier-name">Special Thanks</span>
-            </div>
-            <div class="poster-included-badge">Includes Signed Digital Poster</div>
-            <ul class="tier-list">
-              <li><strong>Signed Digital Poster</strong> of <em>Patient Zero</em></li>
-              <li>Special Thanks credit in the film</li>
-              <li>2 tickets to the local Tucson screening</li>
-            </ul>
-          </div>
-          <button type="button" class="btn-secondary" style="width:100%;" onclick="event.stopPropagation(); openLaunchModal('$100 — Special Thanks')">
-            Notify Me at Launch
-          </button>
-        </div>
-
-        <!-- $250 Tier -->
-        <div class="tier-card" onclick="selectTier(this, '$250 — Associate Producer')">
-          <div>
-            <div class="tier-top">
-              <span class="tier-price">$250</span>
-              <span class="tier-name">Associate Producer</span>
-            </div>
-            <div class="poster-included-badge">Includes Signed Digital Poster</div>
-            <ul class="tier-list">
-              <li><strong>Signed Digital Poster</strong> of <em>Patient Zero</em></li>
-              <li>On-Screen &amp; IMDb <strong>Associate Producer</strong> credit ($250&ndash;$499)</li>
-              <li>Signed physical production still</li>
-              <li>4 tickets to the local Tucson screening</li>
-            </ul>
-          </div>
-          <button type="button" class="btn-secondary" style="width:100%;" onclick="event.stopPropagation(); openLaunchModal('$250 — Associate Producer')">
-            Notify Me at Launch
-          </button>
-        </div>
-
-        <!-- $500+ Tier -->
-        <div class="tier-card" onclick="selectTier(this, '$500+ — Co-Producer')">
-          <div>
-            <div class="tier-top">
-              <span class="tier-price">$500+</span>
-              <span class="tier-name">Co-Producer</span>
-            </div>
-            <div class="poster-included-badge">Includes Signed Digital Poster</div>
-            <ul class="tier-list">
-              <li><strong>Signed Digital Poster</strong> of <em>Patient Zero</em></li>
-              <li>On-Screen &amp; IMDb <strong>Co-Producer</strong> credit</li>
-              <li>Signed physical production still</li>
-              <li>4 tickets to the local Tucson screening</li>
-              <li>Invitation for up to 4 people to the cast &amp; crew dinner</li>
-            </ul>
-          </div>
-          <button type="button" class="btn-secondary" style="width:100%;" onclick="event.stopPropagation(); openLaunchModal('$500+ — Co-Producer')">
-            Notify Me at Launch
-          </button>
-        </div>
-      </div>
-
-      <!-- Production Timeline -->
-      <div class="timeline-row">
-        <div class="timeline-step">
-          <span class="timeline-date">Nov &ndash; Dec 2026</span>
-          <h4>Pre-Launch</h4>
-          <p>Teaser release, outreach, and final pre-production prep in Tucson.</p>
-        </div>
-        <div class="timeline-step highlight">
-          <span class="timeline-date">January 2027</span>
-          <h4>Seed &amp; Spark Live</h4>
-          <p>30-day crowdfunding campaign opens to raise cast/crew rates.</p>
-        </div>
-        <div class="timeline-step">
-          <span class="timeline-date">Early Spring 2027</span>
-          <h4>Tucson Shoot</h4>
-          <p>Principal photography across desert, lake, and corridor locations.</p>
-        </div>
-        <div class="timeline-step">
-          <span class="timeline-date">Spring 2027</span>
-          <h4>Post-Production</h4>
-          <p>Editing, sound design, score, and color grading.</p>
-        </div>
-        <div class="timeline-step">
-          <span class="timeline-date">2027 Release</span>
-          <h4>Festivals &amp; Streaming</h4>
-          <p>Festival run, local Tucson screening, and streaming distribution.</p>
-        </div>
-      </div>
-    </section>
-
-    <div class="cinema-divider"></div>
-
-    <!-- GIVING BACK: CHILDHELP.ORG -->
-    <section id="cause">
-      <div class="cause-panel">
-        <div class="cause-stat">
-          <span class="big-num">10%</span>
-          <span>Of Net Proceeds<br>After Distribution</span>
-        </div>
-        <div>
-          <span class="section-eyebrow">Giving Back &bull; Locked in Producer Agreement</span>
-          <h2 class="section-title" style="margin-bottom:0.85rem;">Supporting Survivors Through Childhelp.org</h2>
-          <p style="font-size: 1rem; color: var(--text-parchment); margin-bottom: 0.9rem; line-height: 1.7;">
-            <strong>10% of net proceeds</strong> from <em>Patient Zero</em> once it enters distribution will be donated directly to <a href="https://www.childhelp.org" target="_blank" rel="noopener noreferrer" style="color:var(--accent-gold);">Childhelp.org</a>, which has served survivors of child abuse and neglect since 1959.
-          </p>
-          <p style="font-size: 0.9rem; color: var(--text-dust);">
-            This commitment is separate from Seed &amp; Spark campaign funds and is established in the signed producer agreement. Zoe&rsquo;s story is for anyone who was told, directly or indirectly, that they weren&rsquo;t enough.
-          </p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- LAUNCH ALERT MODAL (Until Seed & Spark URL goes live in January) -->
-  <div class="modal-backdrop" id="launch-modal" onclick="if(event.target===this) closeLaunchModal()">
-    <div class="modal-card">
-      <button type="button" class="modal-close" aria-label="Close modal" onclick="closeLaunchModal()">&times;</button>
-      <span class="section-eyebrow">January 2027 Launch</span>
-      <h3 style="font-family:'Cinzel', serif; font-size:1.45rem; color:var(--text-parchment); margin-bottom:0.75rem;">
-        Seed &amp; Spark Campaign for funding this film is going live in January!
-      </h3>
-      <p style="font-size:0.94rem; color:var(--text-dust); margin-bottom:1.1rem;" id="modal-tier-context">
-        We are preparing our 30-day Seed &amp; Spark campaign now. Email us below to be added to the Day-1 launch list so you can claim your perk as soon as doors open.
-      </p>
-      <div style="display:flex; flex-direction:column; gap:0.75rem;">
-        <a id="modal-mailto-link" href="mailto:gabrielmichaelproductions@gmail.com?subject=Patient%20Zero%20%E2%80%94%20January%20Seed%20%26%20Spark%20Launch%20List" class="btn-primary">
-          Join Day-1 Launch List via Email
+<!-- Navigation -->
+<nav class="fixed top-0 w-full z-50 bg-obsidian/85 backdrop-blur-md border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="#" class="font-cinzel text-lg md:text-xl font-bold tracking-widest text-white">
+            PATIENT <span class="text-amberGlow">ZERO</span>
         </a>
-        <button type="button" class="btn-secondary" onclick="closeLaunchModal()">
-          Return to Film Poster
-        </button>
-      </div>
+        <div class="hidden md:flex items-center space-x-8 text-xs uppercase tracking-widest text-sandMuted">
+            <a href="#synopsis" class="hover:text-amberBright transition">The Film</a>
+            <a href="#vision" class="hover:text-amberBright transition">Director's Note</a>
+            <a href="#campaign" class="hover:text-amberBright transition">Campaign</a>
+            <a href="#perks" class="hover:text-amberBright transition">Perks</a>
+            <a href="#team" class="hover:text-amberBright transition">Team</a>
+        </div>
+        <a href="#campaign" class="bg-amberGlow hover:bg-amberBright text-obsidian font-semibold text-xs uppercase tracking-wider px-4 py-2.5 rounded transition">
+            Jan 2, 2027
+        </a>
     </div>
-  </div>
+</nav>
 
-  <footer>
-    <p style="font-family:'Cinzel', serif; letter-spacing:0.16em; color:var(--text-parchment); margin-bottom:0.5rem;">
-      PATIENT ZERO
+<!-- Hero Section -->
+<header class="relative min-h-screen flex items-center pt-24 pb-16 px-6">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(217,119,6,0.12),transparent_50%)] pointer-events-none"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(153,27,27,0.12),transparent_50%)] pointer-events-none"></div>
+
+    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+        <!-- Left Copy -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/5 border border-amberGlow/30 text-amberBright text-xs uppercase tracking-widest">
+                <span class="w-2 h-2 rounded-full bg-crimsonBright animate-pulse"></span>
+                <span>Filmed in Tucson, Arizona</span>
+            </div>
+
+            <h1 class="font-cinzel text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-wider text-white amber-text-glow leading-tight">
+                PATIENT ZERO
+            </h1>
+
+            <p class="text-lg sm:text-xl text-zinc-300 font-light max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                When memory fractures in the brutal heat of the desert, survival demands facing the truth buried beneath the silence.
+            </p>
+
+            <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                <button onclick="openNotifyModal()" class="w-full sm:w-auto px-8 py-4 bg-amberGlow hover:bg-amberBright text-obsidian font-bold text-sm uppercase tracking-widest rounded transition shadow-lg shadow-amberGlow/20">
+                    Back on Seed&amp;Spark &bull; Jan 2, 2027
+                </button>
+                <a href="#synopsis" class="w-full sm:w-auto px-8 py-4 border border-white/20 hover:border-amberGlow text-white text-sm uppercase tracking-widest rounded transition text-center">
+                    Explore the Story
+                </a>
+            </div>
+
+            <div class="pt-4 grid grid-cols-3 gap-4 border-t border-white/10 text-left max-w-lg mx-auto lg:mx-0">
+                <div>
+                    <p class="text-[11px] uppercase tracking-widest text-sandMuted">Written &amp; Directed</p>
+                    <p class="text-sm font-semibold text-white">Gabriel Michael</p>
+                </div>
+                <div>
+                    <p class="text-[11px] uppercase tracking-widest text-sandMuted">Produced By</p>
+                    <p class="text-sm font-semibold text-white">Bill Booz</p>
+                </div>
+                <div>
+                    <p class="text-[11px] uppercase tracking-widest text-sandMuted">Starring</p>
+                    <p class="text-sm font-semibold text-white">Rio Van Zant</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Poster -->
+        <div class="lg:col-span-5 flex justify-center">
+            <div class="relative w-full max-w-sm rounded-lg overflow-hidden border border-white/15 poster-frame bg-slateDark">
+                <img src="poster.jpg" alt="Patient Zero Official Film Poster" class="w-full h-auto object-cover">
+                <div class="p-3 bg-obsidian/95 border-t border-white/10 flex items-center justify-between text-[11px] uppercase tracking-widest text-sandMuted">
+                    <span>Gabriel Michael Productions</span>
+                    <span class="text-amberBright">Filmed in Tucson, AZ</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Synopsis Section (No Spoilers, No Specific Locations) -->
+<section id="synopsis" class="py-24 px-6 border-t border-white/10 bg-slateDark/40">
+    <div class="max-w-4xl mx-auto text-center space-y-8">
+        <p class="text-xs uppercase tracking-[0.3em] text-amberGlow font-semibold">The Premise</p>
+        <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white">
+            Nothing Stays Buried in the Desert
+        </h2>
+        <p class="text-zinc-300 text-lg leading-relaxed font-light">
+            Stranded between isolation and instinct, Zoe (Rio Van Zant) navigates an unforgiving landscape where perception bends and every instinct is tested. As shadows lengthen, what begins as a fight for physical endurance turns into an intimate reckoning with memory, trust, and the quiet resilience required to survive.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 text-left">
+            <div class="glass-card p-6 rounded-lg">
+                <h3 class="font-cinzel text-amberBright font-bold text-sm uppercase tracking-wider mb-2">Desert-Noir Atmosphere</h3>
+                <p class="text-sm text-sandMuted leading-relaxed">Filmed in Tucson, Arizona, using natural twilight, harsh desert geometry, and grounded tension.</p>
+            </div>
+            <div class="glass-card p-6 rounded-lg">
+                <h3 class="font-cinzel text-amberBright font-bold text-sm uppercase tracking-wider mb-2">Visceral Realism</h3>
+                <p class="text-sm text-sandMuted leading-relaxed">Rooted in authentic human psychology, exploring C-PTSD, hypervigilance, and focus under extreme pressure.</p>
+            </div>
+            <div class="glass-card p-6 rounded-lg">
+                <h3 class="font-cinzel text-amberBright font-bold text-sm uppercase tracking-wider mb-2">Intimate Stakes</h3>
+                <p class="text-sm text-sandMuted leading-relaxed">A tightly crafted character thriller where every glance, silence, and choice carries lasting weight.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Director's Statement -->
+<section id="vision" class="py-24 px-6 border-t border-white/10">
+    <div class="max-w-4xl mx-auto glass-card p-8 sm:p-12 rounded-xl relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-amberGlow to-crimsonBright"></div>
+        <p class="text-xs uppercase tracking-[0.25em] text-amberGlow mb-3 font-semibold">Director's Statement</p>
+        <h2 class="font-cinzel text-2xl sm:text-3xl font-bold text-white mb-6">
+            "Survival isn't loud. Often, it happens entirely inside the mind."
+        </h2>
+        <div class="space-y-4 text-zinc-300 leading-relaxed font-light">
+            <p>
+                <em>Patient Zero</em> was born out of a desire to tell a psychological thriller that respects the audience's intelligence and trusts visual storytelling over exposition. Filmed in Tucson, Arizona, the landscape isn't just a backdrop—it is a living pressure cooker that strips away distraction.
+            </p>
+            <p>
+                Through Zoe's journey, we explore the internal landscape of C-PTSD and ADHD—not as clinical labels, but as lived sensory experiences of hyper-awareness, fracture, and hard-won clarity.
+            </p>
+        </div>
+        <div class="mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
+            <div>
+                <p class="font-cinzel font-bold text-white">Gabriel Michael</p>
+                <p class="text-xs uppercase tracking-widest text-sandMuted">Writer &amp; Director</p>
+            </div>
+            <span class="text-xs uppercase tracking-widest text-amberBright">Gabriel Michael Productions</span>
+        </div>
+    </div>
+</section>
+
+<!-- Crowdfunding & Stretch Goal Section -->
+<section id="campaign" class="py-24 px-6 border-t border-white/10 bg-slateDark/40">
+    <div class="max-w-5xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+            <p class="text-xs uppercase tracking-[0.3em] text-amberGlow font-semibold">Seed&amp;Spark Crowdfunding</p>
+            <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white">
+                Launching January 2, 2027
+            </h2>
+            <p class="text-sandMuted text-base">
+                Independent cinema thrives when community stands behind it. Every contribution goes directly toward cast, crew, finishing, and festival outreach.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Production & Stretch Goal -->
+            <div class="glass-card p-8 rounded-xl space-y-6">
+                <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                    <h3 class="font-cinzel text-xl font-bold text-white">Campaign Milestones</h3>
+                    <span class="text-amberBright font-bold text-xl">$6,000 Stretch</span>
+                </div>
+                <p class="text-sm text-zinc-300 leading-relaxed">
+                    With <strong>$1,500 in foundational seed capital</strong> already committed, our initial <strong>$2,500 Seed&amp;Spark goal</strong> greenlights core principal photography ($4,000 total production baseline). Beyond that milestone, our <strong>$6,000 Stretch Goal</strong> unlocks enhanced cinema optics, theatrical 5.1 surround sound mixing, custom color grading, and expanded national festival submissions.
+                </p>
+                <div class="space-y-3">
+                    <div class="flex justify-between text-xs uppercase tracking-wider text-sandMuted">
+                        <span>Seed Committed: $1,500</span>
+                        <span class="text-amberBright">Stretch Target: $6,000+</span>
+                    </div>
+                    <div class="w-full bg-white/10 h-2.5 rounded-full overflow-hidden">
+                        <div class="bg-gradient-to-r from-amberGlow to-amberBright h-full w-[25%]"></div>
+                    </div>
+                    <div class="flex justify-between text-[11px] text-sandMuted">
+                        <span>$1.5k Base</span>
+                        <span>$4k Greenlight</span>
+                        <span class="text-white font-semibold">$6k Stretch Goal</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Childhelp Pledge -->
+            <div class="glass-card p-8 rounded-xl space-y-6 border-crimsonBlood/40">
+                <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                    <h3 class="font-cinzel text-xl font-bold text-white">Impact Pledge</h3>
+                    <span class="text-crimsonBright font-bold text-xl">10% Proceeds</span>
+                </div>
+                <p class="text-sm text-zinc-300 leading-relaxed">
+                    Because <em>Patient Zero</em> confronts the lasting echoes of trauma and resilience, our commitment extends beyond the screen. <strong>10% of all net distribution proceeds</strong> from the film will be donated directly to <strong>Childhelp.org</strong> to support the prevention and treatment of child abuse.
+                </p>
+                <div class="pt-2">
+                    <a href="[https://www.childhelp.org](https://www.childhelp.org)" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-xs uppercase tracking-widest text-amberBright hover:text-white transition">
+                        Learn more about Childhelp.org &rarr;
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Backer Perks -->
+<section id="perks" class="py-24 px-6 border-t border-white/10">
+    <div class="max-w-6xl mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+            <p class="text-xs uppercase tracking-[0.3em] text-amberGlow font-semibold">Join the Production</p>
+            <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white">Campaign Reward Tiers</h2>
+            <p class="text-sandMuted text-sm">Preview the supporter rewards launching on Seed&amp;Spark on January 2, 2027.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Tier 1 -->
+            <div class="glass-card p-6 rounded-xl flex flex-col justify-between">
+                <div class="space-y-4">
+                    <span class="text-amberBright font-cinzel text-2xl font-bold">$5+</span>
+                    <h3 class="font-bold text-white text-lg">Desert Supporter</h3>
+                    <p class="text-sm text-sandMuted leading-relaxed">
+                        Official project updates from set, behind-the-scenes production dispatches, and your name listed on our supporter thank-you page.
+                    </p>
+                </div>
+                <div class="pt-6 mt-6 border-t border-white/10 text-xs uppercase tracking-widest text-sandMuted">
+                    Opens Jan 2, 2027
+                </div>
+            </div>
+
+            <!-- Tier 2 -->
+            <div class="glass-card p-6 rounded-xl flex flex-col justify-between border-amberGlow/40">
+                <div class="space-y-4">
+                    <span class="text-amberBright font-cinzel text-2xl font-bold">$25+</span>
+                    <h3 class="font-bold text-white text-lg">Digital Collector</h3>
+                    <p class="text-sm text-sandMuted leading-relaxed">
+                        High-resolution <strong>Digital Signed Poster</strong> by the director and lead cast, early private streaming link, plus all previous rewards.
+                    </p>
+                </div>
+                <div class="pt-6 mt-6 border-t border-white/10 text-xs uppercase tracking-widest text-amberBright">
+                    Most Popular
+                </div>
+            </div>
+
+            <!-- Tier 3 -->
+            <div class="glass-card p-6 rounded-xl flex flex-col justify-between">
+                <div class="space-y-4">
+                    <span class="text-amberBright font-cinzel text-2xl font-bold">$100+</span>
+                    <h3 class="font-bold text-white text-lg">Premiere Screening</h3>
+                    <p class="text-sm text-sandMuted leading-relaxed">
+                        Two VIP tickets to the Tucson cast &amp; crew premiere screening, Special Thanks credit in the film, Digital Signed Poster, and digital screener.
+                    </p>
+                </div>
+                <div class="pt-6 mt-6 border-t border-white/10 text-xs uppercase tracking-widest text-sandMuted">
+                    Opens Jan 2, 2027
+                </div>
+            </div>
+
+            <!-- Tier 4 -->
+            <div class="glass-card p-6 rounded-xl flex flex-col justify-between">
+                <div class="space-y-4">
+                    <span class="text-amberBright font-cinzel text-2xl font-bold">$500+</span>
+                    <h3 class="font-bold text-white text-lg">Associate Producer</h3>
+                    <p class="text-sm text-sandMuted leading-relaxed">
+                        Official <strong>Associate Producer</strong> screen credit &amp; IMDb credit, invitation to visit set in Tucson, signed physical poster, and VIP screening passes.
+                    </p>
+                </div>
+                <div class="pt-6 mt-6 border-t border-white/10 text-xs uppercase tracking-widest text-sandMuted">
+                    Limited Availability
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Key Creative Team -->
+<section id="team" class="py-24 px-6 border-t border-white/10 bg-slateDark/40">
+    <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-14 space-y-3">
+            <p class="text-xs uppercase tracking-[0.3em] text-amberGlow font-semibold">Cast &amp; Crew</p>
+            <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white">The Team</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="glass-card p-6 rounded-xl text-center space-y-3">
+                <p class="text-xs uppercase tracking-widest text-amberBright">Writer &bull; Director &bull; Editor</p>
+                <h3 class="font-cinzel text-xl font-bold text-white">Gabriel Michael</h3>
+                <p class="text-sm text-sandMuted leading-relaxed">
+                    Tucson-based independent filmmaker and founder of Gabriel Michael Productions, crafting character-driven desert thrillers and observational drama.
+                </p>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl text-center space-y-3">
+                <p class="text-xs uppercase tracking-widest text-amberBright">Lead Role &bull; Zoe</p>
+                <h3 class="font-cinzel text-xl font-bold text-white">Rio Van Zant</h3>
+                <p class="text-sm text-sandMuted leading-relaxed">
+                    Actress and model anchoring the emotional core of <em>Patient Zero</em> with a raw, grounded performance built on physical presence and subtlety.
+                </p>
+            </div>
+
+            <div class="glass-card p-6 rounded-xl text-center space-y-3">
+                <p class="text-xs uppercase tracking-widest text-amberBright">Producer</p>
+                <h3 class="font-cinzel text-xl font-bold text-white">Bill Booz</h3>
+                <p class="text-sm text-sandMuted leading-relaxed">
+                    Executive producer and partner at Total Return Life Films, overseeing production strategy, logistics, and festival distribution.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-12 px-6 border-t border-white/10 text-center space-y-4">
+    <p class="font-cinzel text-lg font-bold tracking-widest text-white">
+        PATIENT <span class="text-amberGlow">ZERO</span>
     </p>
-    <p style="margin-bottom:0.5rem;">
-      Gabriel Michael Productions LLC &bull; Total Return Life Films LLC &bull; Tucson, Arizona
+    <p class="text-xs text-sandMuted uppercase tracking-widest">
+        &copy; 2026&ndash;2027 Gabriel Michael Productions &bull; Filmed in Tucson, Arizona &bull; All Rights Reserved
     </p>
-    <p>
-      Contact: <a href="mailto:gabrielmichaelproductions@gmail.com">gabrielmichaelproductions@gmail.com</a> &bull;
-      <a href="https://gabrielmichaelproductions.com" target="_blank" rel="noopener noreferrer">gabrielmichaelproductions.com</a>
-    </p>
-  </footer>
+</footer>
 
-  <script>
-    // 1. Subtle interactive cursor backlight on the film poster hero
-    const heroBacklight = document.getElementById('hero-backlight');
-    document.addEventListener('mousemove', (e) => {
-      if (!heroBacklight) return;
-      const x = (e.clientX / window.innerWidth - 0.5) * 45;
-      const y = (e.clientY / window.innerHeight - 0.5) * 35;
-      heroBacklight.style.transform = `translate(calc(-50% + ${x}px), ${y}px)`;
-    });
+<!-- Pre-Launch Modal -->
+<div id="notifyModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm px-4">
+    <div class="glass-card max-w-md w-full p-8 rounded-xl border border-amberGlow/50 text-center space-y-5 relative">
+        <button onclick="closeNotifyModal()" class="absolute top-4 right-4 text-sandMuted hover:text-white text-xl">&times;</button>
+        <p class="text-xs uppercase tracking-widest text-amberBright font-semibold">Pre-Launch Notice</p>
+        <h3 class="font-cinzel text-2xl font-bold text-white">Seed&amp;Spark Opens Jan 2, 2027</h3>
+        <p class="text-sm text-zinc-300 leading-relaxed">
+            Our official crowdfunding campaign goes live on <strong>January 2, 2027</strong>. Bookmark <strong>patientzerofilm.com</strong> or follow Gabriel Michael Productions for the direct launch link.
+        </p>
+        <button onclick="closeNotifyModal()" class="w-full py-3 bg-amberGlow hover:bg-amberBright text-obsidian font-bold text-xs uppercase tracking-widest rounded transition">
+            Got It
+        </button>
+    </div>
+</div>
 
-    // 2. Interactive "Four Worlds" Switcher with Dynamic Mood Lighting
-    const worldsData = {
-      desert: {
-        heading: 'I. The Desert',
-        desc: 'Alone and lost in the Sonoran night. Zoe searches for Thomas as the landscape shifts around her without her reacting — the disorienting first step inside a mind trying to outrun itself.',
-        spec: 'Real night exteriors in Tucson. Grounded desert terrain, minimal dialogue, and atmospheric silence carried by practical lighting.',
-        glow: 'rgba(224, 122, 46, 0.22)'
-      },
-      lake: {
-        heading: 'II. The Lake',
-        desc: 'She cannot choose a path. Touching the still, dark water sets off stark black-and-white memories she has spent her entire adulthood trying to bury.',
-        spec: 'Moonlight reflections on still water transitioning into high-contrast monochrome memory sequences.',
-        glow: 'rgba(110, 145, 175, 0.22)'
-      },
-      hospital: {
-        heading: 'III. The Hospital',
-        desc: 'An indifferent warden from her own mind. The whiteboard, the nametag, and the child behind the glass — confronting the institutional weight of the lie she inherited.',
-        spec: 'Cold fluorescent practicals and stark corridor symmetry.',
-        glow: 'rgba(130, 175, 155, 0.20)'
-      },
-      void: {
-        heading: 'IV. The Void',
-        desc: 'Everything false falls away. A single golden light in the dark and the only tear. Through the silence, Thomas calls her name — her anchor back to the world.',
-        spec: 'Overhead black, stars, and a single warm golden spotlight.',
-        glow: 'rgba(244, 184, 96, 0.28)'
-      }
-    };
-
-    function selectWorld(key, btn) {
-      document.querySelectorAll('.world-tab').forEach(t => t.classList.remove('active'));
-      btn.classList.add('active');
-
-      const data = worldsData[key];
-      const container = document.getElementById('worlds-container');
-      document.getElementById('world-heading').textContent = data.heading;
-      document.getElementById('world-desc').textContent = data.desc;
-      document.getElementById('world-spec').textContent = data.spec;
-      container.style.boxShadow = `0 0 60px ${data.glow}`;
+<script>
+    function openNotifyModal() {
+        const modal = document.getElementById('notifyModal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
     }
-
-    // 3. Interactive Supporter Tier Selection
-    function selectTier(cardEl, tierLabel) {
-      document.querySelectorAll('.tier-card').forEach(c => c.classList.remove('selected'));
-      cardEl.classList.add('selected');
+    function closeNotifyModal() {
+        const modal = document.getElementById('notifyModal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
     }
-
-    // 4. January Launch Modal Handler
-    function openLaunchModal(tierName) {
-      const modal = document.getElementById('launch-modal');
-      const context = document.getElementById('modal-tier-context');
-      const mailLink = document.getElementById('modal-mailto-link');
-
-      context.textContent = `Selected interest: ${tierName}. Our 30-day Seed & Spark campaign goes live in January 2027. Join the Day-1 launch list so you receive the direct link the moment we go live.`;
-      const subject = encodeURIComponent(`Patient Zero — January Launch List (${tierName})`);
-      const body = encodeURIComponent(`Hi Gabriel,
-
-Please add me to the Day-1 launch list for the Patient Zero Seed & Spark campaign going live in January! I am interested in: ${tierName}.
-`);
-      mailLink.href = `mailto:gabrielmichaelproductions@gmail.com?subject=${subject}&body=${body}`;
-
-      modal.classList.add('open');
-    }
-
-    function closeLaunchModal() {
-      document.getElementById('launch-modal').classList.remove('open');
-    }
-
-    // 5. Ambient Sonoran Starlight & Meteor Ember Drift Canvas
-    const canvas = document.getElementById('ambient-canvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    window.addEventListener('resize', resizeCanvas);
-    resizeCanvas();
-
-    for (let i = 0; i < 55; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 1.6 + 0.4,
-        vx: (Math.random() - 0.5) * 0.18,
-        vy: -Math.random() * 0.22 - 0.05,
-        isEmber: Math.random() > 0.65,
-        alpha: Math.random() * 0.6 + 0.2
-      });
-    }
-
-    function animateParticles() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (const p of particles) {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.y < -5) p.y = canvas.height + 5;
-        if (p.x < -5) p.x = canvas.width + 5;
-        if (p.x > canvas.width + 5) p.x = -5;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = p.isEmber
-          ? `rgba(224, 122, 46, ${p.alpha})`
-          : `rgba(242, 239, 233, ${p.alpha * 0.6})`;
-        ctx.fill();
-      }
-      requestAnimationFrame(animateParticles);
-    }
-    animateParticles();
-  </script>
-</body>
-</html>
+</script>
