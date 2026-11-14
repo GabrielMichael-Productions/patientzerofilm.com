@@ -1,331 +1,389 @@
-<!-- Navigation -->
-<nav class="fixed top-0 w-full z-50 bg-obsidian/85 backdrop-blur-md border-b border-white/10">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="#" class="font-cinzel text-lg md:text-xl font-bold tracking-widest text-white">
-            PATIENT <span class="text-amberGlow">ZERO</span>
-        </a>
-        <div class="hidden md:flex items-center space-x-8 text-xs uppercase tracking-widest text-sandMuted">
-            <a href="#synopsis" class="hover:text-amberBright transition">The Film</a>
-            <a href="#vision" class="hover:text-amberBright transition">Director's Note</a>
-            <a href="#campaign" class="hover:text-amberBright transition">Campaign</a>
-            <a href="#perks" class="hover:text-amberBright transition">Perks</a>
-            <a href="#team" class="hover:text-amberBright transition">Team</a>
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PATIENT ZERO | Official Film Site</title>
+    <meta name="description" content="A psychological thriller filmed in Tucson, Arizona. Written and directed by Gabriel Michael, produced by Bill Booz, and starring Rio Van Zant.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#09090B',
+                        slateDark: '#121216',
+                        amberGlow: '#D97706',
+                        amberBright: '#F59E0B',
+                        crimsonBlood: '#991B1B',
+                        crimsonBright: '#DC2626',
+                        sandMuted: '#A1A1AA'
+                    },
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #09090B;
+            color: #F4F4F5;
+            overflow-x: hidden;
+        }
+        .amber-text-glow {
+            text-shadow: 0 0 24px rgba(217, 119, 6, 0.35);
+        }
+        .poster-frame {
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 35px rgba(217, 119, 6, 0.15);
+        }
+        .glass-card {
+            background: rgba(18, 18, 22, 0.78);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glass-card:hover {
+            border-color: rgba(217, 119, 6, 0.45);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-amberGlow selection:text-white">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-obsidian/85 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="#" class="font-cinzel text-lg md:text-xl font-bold tracking-widest text-white">
+                PATIENT <span class="text-amberGlow">ZERO</span>
+            </a>
+            <div class="hidden md:flex items-center space-x-8 text-xs uppercase tracking-widest text-sandMuted">
+                <a href="#synopsis" class="hover:text-amberBright transition">The Film</a>
+                <a href="#vision" class="hover:text-amberBright transition">Director's Note</a>
+                <a href="#campaign" class="hover:text-amberBright transition">Campaign</a>
+                <a href="#perks" class="hover:text-amberBright transition">Perks</a>
+                <a href="#team" class="hover:text-amberBright transition">Team</a>
+            </div>
+            <a href="#campaign" class="bg-amberGlow hover:bg-amberBright text-obsidian font-semibold text-xs uppercase tracking-wider px-4 py-2.5 rounded transition">
+                Jan 2, 2027
+            </a>
         </div>
-        <a href="#campaign" class="bg-amberGlow hover:bg-amberBright text-obsidian font-semibold text-xs uppercase tracking-wider px-4 py-2.5 rounded transition">
-            Jan 2, 2027
-        </a>
-    </div>
-</nav>
+    </nav>
 
-<!-- Hero Section -->
-<header class="relative min-h-screen flex items-center pt-24 pb-16 px-6">
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(217,119,6,0.12),transparent_50%)] pointer-events-none"></div>
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(153,27,27,0.12),transparent_50%)] pointer-events-none"></div>
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center pt-24 pb-16 px-6">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(217,119,6,0.12),transparent_50%)] pointer-events-none"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(153,27,27,0.12),transparent_50%)] pointer-events-none"></div>
 
-    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-        <!-- Left Copy -->
-        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-            <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/5 border border-amberGlow/30 text-amberBright text-xs uppercase tracking-widest">
-                <span class="w-2 h-2 rounded-full bg-crimsonBright animate-pulse"></span>
-                <span>Filmed in Tucson, Arizona</span>
-            </div>
-
-            <h1 class="font-cinzel text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-wider text-white amber-text-glow leading-tight">
-                PATIENT ZERO
-            </h1>
-
-            <p class="text-lg sm:text-xl text-zinc-300 font-light max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                When memory fractures in the brutal heat of the desert, survival demands facing the truth buried beneath the silence.
-            </p>
-
-            <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                <button onclick="openNotifyModal()" class="w-full sm:w-auto px-8 py-4 bg-amberGlow hover:bg-amberBright text-obsidian font-bold text-sm uppercase tracking-widest rounded transition shadow-lg shadow-amberGlow/20">
-                    Back on Seed&amp;Spark &bull; Jan 2, 2027
-                </button>
-                <a href="#synopsis" class="w-full sm:w-auto px-8 py-4 border border-white/20 hover:border-amberGlow text-white text-sm uppercase tracking-widest rounded transition text-center">
-                    Explore the Story
-                </a>
-            </div>
-
-            <div class="pt-4 grid grid-cols-3 gap-4 border-t border-white/10 text-left max-w-lg mx-auto lg:mx-0">
-                <div>
-                    <p class="text-[11px] uppercase tracking-widest text-sandMuted">Written &amp; Directed</p>
-                    <p class="text-sm font-semibold text-white">Gabriel Michael</p>
+        <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+            <!-- Left Copy -->
+            <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-white/5 border border-amberGlow/30 text-amberBright text-xs uppercase tracking-widest">
+                    <span class="w-2 h-2 rounded-full bg-crimsonBright animate-pulse"></span>
+                    <span>Filmed in Tucson, Arizona</span>
                 </div>
-                <div>
-                    <p class="text-[11px] uppercase tracking-widest text-sandMuted">Produced By</p>
-                    <p class="text-sm font-semibold text-white">Bill Booz</p>
-                </div>
-                <div>
-                    <p class="text-[11px] uppercase tracking-widest text-sandMuted">Starring</p>
-                    <p class="text-sm font-semibold text-white">Rio Van Zant</p>
-                </div>
-            </div>
-        </div>
 
-        <!-- Right Poster -->
-        <div class="lg:col-span-5 flex justify-center">
-            <div class="relative w-full max-w-sm rounded-lg overflow-hidden border border-white/15 poster-frame bg-slateDark">
-                <img src="poster.jpg" alt="Patient Zero Official Film Poster" class="w-full h-auto object-cover">
-                <div class="p-3 bg-obsidian/95 border-t border-white/10 flex items-center justify-between text-[11px] uppercase tracking-widest text-sandMuted">
-                    <span>Gabriel Michael Productions</span>
-                    <span class="text-amberBright">Filmed in Tucson, AZ</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
+                <h1 class="font-cinzel text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-wider text-white amber-text-glow leading-tight">
+                    PATIENT ZERO
+                </h1>
 
-<!-- Synopsis Section -->
-<section id="synopsis" class="py-24 px-6 border-t border-white/10 bg-slateDark/40">
-    <div class="max-w-4xl mx-auto text-center space-y-8">
-        <p class="text-xs uppercase tracking-[0.3em] text-amberGlow font-semibold">The Premise</p>
-        <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white">
-            Nothing Stays Buried in the Desert
-        </h2>
-        <p class="text-zinc-300 text-lg leading-relaxed font-light">
-            Stranded between isolation and instinct, Zoe (Rio Van Zant) navigates an unforgiving landscape where perception bends and every instinct is tested. As shadows lengthen, what begins as a fight for physical endurance turns into an intimate reckoning with memory, trust, and the quiet resilience required to survive.
-        </p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 text-left">
-            <div class="glass-card p-6 rounded-lg">
-                <h3 class="font-cinzel text-amberBright font-bold text-sm uppercase tracking-wider mb-2">Desert-Noir Atmosphere</h3>
-                <p class="text-sm text-sandMuted leading-relaxed">Filmed in Tucson, Arizona, using natural twilight, harsh desert geometry, and grounded tension.</p>
-            </div>
-            <div class="glass-card p-6 rounded-lg">
-                <h3 class="font-cinzel text-amberBright font-bold text-sm uppercase tracking-wider mb-2">Visceral Realism</h3>
-                <p class="text-sm text-sandMuted leading-relaxed">Rooted in authentic human psychology, exploring C-PTSD, hypervigilance, and focus under extreme pressure.</p>
-            </div>
-            <div class="glass-card p-6 rounded-lg">
-                <h3 class="font-cinzel text-amberBright font-bold text-sm uppercase tracking-wider mb-2">Intimate Stakes</h3>
-                <p class="text-sm text-sandMuted leading-relaxed">A tightly crafted character thriller where every glance, silence, and choice carries lasting weight.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Director's Statement -->
-<section id="vision" class="py-24 px-6 border-t border-white/10">
-    <div class="max-w-4xl mx-auto glass-card p-8 sm:p-12 rounded-xl relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-amberGlow to-crimsonBright"></div>
-        <p class="text-xs uppercase tracking-[0.25em] text-amberGlow mb-3 font-semibold">Director's Statement</p>
-        <h2 class="font-cinzel text-2xl sm:text-3xl font-bold text-white mb-6">
-            "Survival isn't loud. Often, it happens entirely inside the mind."
-        </h2>
-        <div class="space-y-4 text-zinc-300 leading-relaxed font-light">
-            <p>
-                <em>Patient Zero</em> was born out of a desire to tell a psychological thriller that respects the audience's intelligence and trusts visual storytelling over exposition. Filmed in Tucson, Arizona, the landscape isn't just a backdrop—it is a living pressure cooker that strips away distraction.
-            </p>
-            <p>
-                Through Zoe's journey, we explore the internal landscape of C-PTSD and ADHD—not as clinical labels, but as lived sensory experiences of hyper-awareness, fracture, and hard-won clarity.
-            </p>
-        </div>
-        <div class="mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
-            <div>
-                <p class="font-cinzel font-bold text-white">Gabriel Michael</p>
-                <p class="text-xs uppercase tracking-widest text-sandMuted">Writer &amp; Director</p>
-            </div>
-            <span class="text-xs uppercase tracking-widest text-amberBright">Gabriel Michael Productions</span>
-        </div>
-    </div>
-</section>
-
-<!-- Crowdfunding & Stretch Goal Section -->
-<section id="campaign" class="py-24 px-6 border-t border-white/10 bg-slateDark/40">
-    <div class="max-w-5xl mx-auto">
-        <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
-            <p class="text-xs uppercase tracking-[0.3em] text-amberGlow font-semibold">Seed&amp;Spark Crowdfunding</p>
-            <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white">
-                Launching January 2, 2027
-            </h2>
-            <p class="text-sandMuted text-base">
-                Independent cinema thrives when community stands behind it. Every contribution goes directly toward cast, crew, finishing, and festival outreach.
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <!-- Production & Stretch Goal -->
-            <div class="glass-card p-8 rounded-xl space-y-6">
-                <div class="flex items-center justify-between border-b border-white/10 pb-4">
-                    <h3 class="font-cinzel text-xl font-bold text-white">Campaign Milestones</h3>
-                    <span class="text-amberBright font-bold text-xl">$6,000 Stretch</span>
-                </div>
-                <p class="text-sm text-zinc-300 leading-relaxed">
-                    With <strong>$1,500 in foundational seed capital</strong> already committed, our initial <strong>$2,500 Seed&amp;Spark goal</strong> greenlights core principal photography ($4,000 total production baseline). With no upper cap on community support, our <strong>$6,000 Stretch Goal</strong> unlocks enhanced cinema optics, theatrical 5.1 surround sound mixing, custom color grading, and expanded national festival submissions.
+                <p class="text-lg sm:text-xl text-zinc-300 font-light max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                    When memory fractures in the brutal heat of the desert, survival demands facing the truth buried beneath the silence.
                 </p>
-                <div class="space-y-3">
-                    <div class="flex justify-between text-xs uppercase tracking-wider text-sandMuted">
-                        <span>Seed Committed: $1,500</span>
-                        <span class="text-amberBright">Stretch Goal: $6,000+</span>
-                    </div>
-                    <div class="w-full bg-white/10 h-2.5 rounded-full overflow-hidden">
-                        <div class="bg-gradient-to-r from-amberGlow to-amberBright h-full w-[25%]"></div>
-                    </div>
-                    <div class="flex justify-between text-[11px] text-sandMuted">
-                        <span>$1.5k Base</span>
-                        <span>$4k Greenlight</span>
-                        <span class="text-white font-semibold">$6k+ Stretch</span>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Childhelp Pledge -->
-            <div class="glass-card p-8 rounded-xl space-y-6 border-crimsonBlood/40">
-                <div class="flex items-center justify-between border-b border-white/10 pb-4">
-                    <h3 class="font-cinzel text-xl font-bold text-white">Impact Pledge</h3>
-                    <span class="text-crimsonBright font-bold text-xl">10% Proceeds</span>
-                </div>
-                <p class="text-sm text-zinc-300 leading-relaxed">
-                    Because <em>Patient Zero</em> confronts the lasting echoes of trauma and resilience, our commitment extends beyond the screen. <strong>10% of all net distribution proceeds</strong> from the film will be donated directly to <strong>Childhelp.org</strong> to support the prevention and treatment of child abuse.
-                </p>
-                <div class="pt-2">
-                    <a href="[https://www.childhelp.org](https://www.childhelp.org)" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-xs uppercase tracking-widest text-amberBright hover:text-white transition">
-                        Learn more about Childhelp.org &rarr;
+                <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                    <button onclick="openNotifyModal()" class="w-full sm:w-auto px-8 py-4 bg-amberGlow hover:bg-amberBright text-obsidian font-bold text-sm uppercase tracking-widest rounded transition shadow-lg shadow-amberGlow/20">
+                        Back on Seed&amp;Spark &bull; Jan 2, 2027
+                    </button>
+                    <a href="#synopsis" class="w-full sm:w-auto px-8 py-4 border border-white/20 hover:border-amberGlow text-white text-sm uppercase tracking-widest rounded transition text-center">
+                        Explore the Story
                     </a>
                 </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<!-- Backer Perks -->
-<section id="perks" class="py-24 px-6 border-t border-white/10">
-    <div class="max-w-6xl mx-auto">
-        <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
-            <p class="text-xs uppercase tracking-[0.3em] text-amberGlow font-semibold">Join the Production</p>
-            <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white">Campaign Reward Tiers</h2>
-            <p class="text-sandMuted text-sm">Preview the supporter rewards launching on Seed&amp;Spark on January 2, 2027.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Tier 1 -->
-            <div class="glass-card p-6 rounded-xl flex flex-col justify-between">
-                <div class="space-y-4">
-                    <span class="text-amberBright font-cinzel text-2xl font-bold">$5+</span>
-                    <h3 class="font-bold text-white text-lg">Desert Supporter</h3>
-                    <p class="text-sm text-sandMuted leading-relaxed">
-                        Official project updates from set, behind-the-scenes production dispatches, and your name listed on our supporter thank-you page.
-                    </p>
-                </div>
-                <div class="pt-6 mt-6 border-t border-white/10 text-xs uppercase tracking-widest text-sandMuted">
-                    Opens Jan 2, 2027
+                <div class="pt-4 grid grid-cols-3 gap-4 border-t border-white/10 text-left max-w-lg mx-auto lg:mx-0">
+                    <div>
+                        <p class="text-[11px] uppercase tracking-widest text-sandMuted">Written &amp; Directed</p>
+                        <p class="text-sm font-semibold text-white">Gabriel Michael</p>
+                    </div>
+                    <div>
+                        <p class="text-[11px] uppercase tracking-widest text-sandMuted">Produced By</p>
+                        <p class="text-sm font-semibold text-white">Bill Booz</p>
+                    </div>
+                    <div>
+                        <p class="text-[11px] uppercase tracking-widest text-sandMuted">Starring</p>
+                        <p class="text-sm font-semibold text-white">Rio Van Zant</p>
+                    </div>
                 </div>
             </div>
 
-            <!-- Tier 2 -->
-            <div class="glass-card p-6 rounded-xl flex flex-col justify-between border-amberGlow/40">
-                <div class="space-y-4">
-                    <span class="text-amberBright font-cinzel text-2xl font-bold">$25+</span>
-                    <h3 class="font-bold text-white text-lg">Digital Collector</h3>
-                    <p class="text-sm text-sandMuted leading-relaxed">
-                        High-resolution <strong>Digital Signed Poster</strong> by the director and lead cast, early private streaming link, plus all previous rewards.
-                    </p>
-                </div>
-                <div class="pt-6 mt-6 border-t border-white/10 text-xs uppercase tracking-widest text-amberBright">
-                    Most Popular
-                </div>
-            </div>
-
-            <!-- Tier 3 -->
-            <div class="glass-card p-6 rounded-xl flex flex-col justify-between">
-                <div class="space-y-4">
-                    <span class="text-amberBright font-cinzel text-2xl font-bold">$100+</span>
-                    <h3 class="font-bold text-white text-lg">Premiere Screening</h3>
-                    <p class="text-sm text-sandMuted leading-relaxed">
-                        Two VIP tickets to the Tucson cast &amp; crew premiere screening, Special Thanks credit in the film, Digital Signed Poster, and digital screener.
-                    </p>
-                </div>
-                <div class="pt-6 mt-6 border-t border-white/10 text-xs uppercase tracking-widest text-sandMuted">
-                    Opens Jan 2, 2027
-                </div>
-            </div>
-
-            <!-- Tier 4 -->
-            <div class="glass-card p-6 rounded-xl flex flex-col justify-between">
-                <div class="space-y-4">
-                    <span class="text-amberBright font-cinzel text-2xl font-bold">$500+</span>
-                    <h3 class="font-bold text-white text-lg">Associate Producer</h3>
-                    <p class="text-sm text-sandMuted leading-relaxed">
-                        Official <strong>Associate Producer</strong> screen credit &amp; IMDb credit, invitation to visit set in Tucson, signed physical poster, and VIP screening passes.
-                    </p>
-                </div>
-                <div class="pt-6 mt-6 border-t border-white/10 text-xs uppercase tracking-widest text-sandMuted">
-                    Limited Availability
+            <!-- Right Poster -->
+            <div class="lg:col-span-5 flex justify-center">
+                <div class="relative w-full max-w-sm rounded-lg overflow-hidden border border-white/15 poster-frame bg-slateDark">
+                    <img src="poster.jpg" alt="Patient Zero Official Film Poster" class="w-full h-auto object-cover">
+                    <div class="p-3 bg-obsidian/95 border-t border-white/10 flex items-center justify-between text-[11px] uppercase tracking-widest text-sandMuted">
+                        <span>Gabriel Michael Productions</span>
+                        <span class="text-amberBright">Filmed in Tucson, AZ</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </header>
 
-<!-- Key Creative Team -->
-<section id="team" class="py-24 px-6 border-t border-white/10 bg-slateDark/40">
-    <div class="max-w-5xl mx-auto">
-        <div class="text-center mb-14 space-y-3">
-            <p class="text-xs uppercase tracking-[0.3em] text-amberGlow font-semibold">Cast &amp; Crew</p>
-            <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white">The Team</h2>
+    <!-- Synopsis Section -->
+    <section id="synopsis" class="py-24 px-6 border-t border-white/10 bg-slateDark/40">
+        <div class="max-w-4xl mx-auto text-center space-y-8">
+            <p class="text-xs uppercase tracking-[0.3em] text-amberGlow font-semibold">The Premise</p>
+            <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white">
+                Nothing Stays Buried in the Desert
+            </h2>
+            <p class="text-zinc-300 text-lg leading-relaxed font-light">
+                Stranded between isolation and instinct, Zoe (Rio Van Zant) navigates an unforgiving landscape where perception bends and every instinct is tested. As shadows lengthen, what begins as a fight for physical endurance turns into an intimate reckoning with memory, trust, and the quiet resilience required to survive.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 text-left">
+                <div class="glass-card p-6 rounded-lg">
+                    <h3 class="font-cinzel text-amberBright font-bold text-sm uppercase tracking-wider mb-2">Desert-Noir Atmosphere</h3>
+                    <p class="text-sm text-sandMuted leading-relaxed">Filmed in Tucson, Arizona, using natural twilight, harsh desert geometry, and grounded tension.</p>
+                </div>
+                <div class="glass-card p-6 rounded-lg">
+                    <h3 class="font-cinzel text-amberBright font-bold text-sm uppercase tracking-wider mb-2">Visceral Realism</h3>
+                    <p class="text-sm text-sandMuted leading-relaxed">Rooted in authentic human psychology, exploring C-PTSD, hypervigilance, and focus under extreme pressure.</p>
+                </div>
+                <div class="glass-card p-6 rounded-lg">
+                    <h3 class="font-cinzel text-amberBright font-bold text-sm uppercase tracking-wider mb-2">Intimate Stakes</h3>
+                    <p class="text-sm text-sandMuted leading-relaxed">A tightly crafted character thriller where every glance, silence, and choice carries lasting weight.</p>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="glass-card p-6 rounded-xl text-center space-y-3">
-                <p class="text-xs uppercase tracking-widest text-amberBright">Writer &bull; Director &bull; Editor</p>
-                <h3 class="font-cinzel text-xl font-bold text-white">Gabriel Michael</h3>
-                <p class="text-sm text-sandMuted leading-relaxed">
-                    Tucson-based independent filmmaker and founder of Gabriel Michael Productions, crafting character-driven desert thrillers and observational drama.
+    <!-- Director's Statement -->
+    <section id="vision" class="py-24 px-6 border-t border-white/10">
+        <div class="max-w-4xl mx-auto glass-card p-8 sm:p-12 rounded-xl relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-amberGlow to-crimsonBright"></div>
+            <p class="text-xs uppercase tracking-[0.25em] text-amberGlow mb-3 font-semibold">Director's Statement</p>
+            <h2 class="font-cinzel text-2xl sm:text-3xl font-bold text-white mb-6">
+                "Survival isn't loud. Often, it happens entirely inside the mind."
+            </h2>
+            <div class="space-y-4 text-zinc-300 leading-relaxed font-light">
+                <p>
+                    <em>Patient Zero</em> was born out of a desire to tell a psychological thriller that respects the audience's intelligence and trusts visual storytelling over exposition. Filmed in Tucson, Arizona, the landscape isn't just a backdrop—it is a living pressure cooker that strips away distraction.
+                </p>
+                <p>
+                    Through Zoe's journey, we explore the internal landscape of C-PTSD and ADHD—not as clinical labels, but as lived sensory experiences of hyper-awareness, fracture, and hard-won clarity.
+                </p>
+            </div>
+            <div class="mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
+                <div>
+                    <p class="font-cinzel font-bold text-white">Gabriel Michael</p>
+                    <p class="text-xs uppercase tracking-widest text-sandMuted">Writer &amp; Director</p>
+                </div>
+                <span class="text-xs uppercase tracking-widest text-amberBright">Gabriel Michael Productions</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Crowdfunding & Stretch Goal Section -->
+    <section id="campaign" class="py-24 px-6 border-t border-white/10 bg-slateDark/40">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-4">
+                <p class="text-xs uppercase tracking-[0.3em] text-amberGlow font-semibold">Seed&amp;Spark Crowdfunding</p>
+                <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white">
+                    Launching January 2, 2027
+                </h2>
+                <p class="text-sandMuted text-base">
+                    Independent cinema thrives when community stands behind it. Every contribution goes directly toward cast, crew, finishing, and festival outreach.
                 </p>
             </div>
 
-            <div class="glass-card p-6 rounded-xl text-center space-y-3">
-                <p class="text-xs uppercase tracking-widest text-amberBright">Lead Role &bull; Zoe</p>
-                <h3 class="font-cinzel text-xl font-bold text-white">Rio Van Zant</h3>
-                <p class="text-sm text-sandMuted leading-relaxed">
-                    Actress and model anchoring the emotional core of <em>Patient Zero</em> with a raw, grounded performance built on physical presence and subtlety.
-                </p>
-            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Production & Stretch Goal -->
+                <div class="glass-card p-8 rounded-xl space-y-6">
+                    <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                        <h3 class="font-cinzel text-xl font-bold text-white">Campaign Milestones</h3>
+                        <span class="text-amberBright font-bold text-xl">$6,000 Stretch</span>
+                    </div>
+                    <p class="text-sm text-zinc-300 leading-relaxed">
+                        With <strong>$1,500 in foundational seed capital</strong> already committed, our initial <strong>$2,500 Seed&amp;Spark goal</strong> greenlights core principal photography ($4,000 total production baseline). With no upper cap on community support, our <strong>$6,000 Stretch Goal</strong> unlocks enhanced cinema optics, theatrical 5.1 surround sound mixing, custom color grading, and expanded national festival submissions.
+                    </p>
+                    <div class="space-y-3">
+                        <div class="flex justify-between text-xs uppercase tracking-wider text-sandMuted">
+                            <span>Seed Committed: $1,500</span>
+                            <span class="text-amberBright">Stretch Goal: $6,000+</span>
+                        </div>
+                        <div class="w-full bg-white/10 h-2.5 rounded-full overflow-hidden">
+                            <div class="bg-gradient-to-r from-amberGlow to-amberBright h-full w-[25%]"></div>
+                        </div>
+                        <div class="flex justify-between text-[11px] text-sandMuted">
+                            <span>$1.5k Base</span>
+                            <span>$4k Greenlight</span>
+                            <span class="text-white font-semibold">$6k+ Stretch</span>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="glass-card p-6 rounded-xl text-center space-y-3">
-                <p class="text-xs uppercase tracking-widest text-amberBright">Producer</p>
-                <h3 class="font-cinzel text-xl font-bold text-white">Bill Booz</h3>
-                <p class="text-sm text-sandMuted leading-relaxed">
-                    Executive producer and partner at Total Return Life Films, overseeing production strategy, logistics, and festival distribution.
-                </p>
+                <!-- Childhelp Pledge -->
+                <div class="glass-card p-8 rounded-xl space-y-6 border-crimsonBlood/40">
+                    <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                        <h3 class="font-cinzel text-xl font-bold text-white">Impact Pledge</h3>
+                        <span class="text-crimsonBright font-bold text-xl">10% Proceeds</span>
+                    </div>
+                    <p class="text-sm text-zinc-300 leading-relaxed">
+                        Because <em>Patient Zero</em> confronts the lasting echoes of trauma and resilience, our commitment extends beyond the screen. <strong>10% of all net distribution proceeds</strong> from the film will be donated directly to <strong>Childhelp.org</strong> to support the prevention and treatment of child abuse.
+                    </p>
+                    <div class="pt-2">
+                        <a href="https://www.childhelp.org" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-xs uppercase tracking-widest text-amberBright hover:text-white transition">
+                            Learn more about Childhelp.org &rarr;
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- Footer -->
-<footer class="py-12 px-6 border-t border-white/10 text-center space-y-4">
-    <p class="font-cinzel text-lg font-bold tracking-widest text-white">
-        PATIENT <span class="text-amberGlow">ZERO</span>
-    </p>
-    <p class="text-xs text-sandMuted uppercase tracking-widest">
-        &copy; 2026&ndash;2027 Gabriel Michael Productions &bull; Filmed in Tucson, Arizona &bull; All Rights Reserved
-    </p>
-</footer>
+    <!-- Backer Perks -->
+    <section id="perks" class="py-24 px-6 border-t border-white/10">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
+                <p class="text-xs uppercase tracking-[0.3em] text-amberGlow font-semibold">Join the Production</p>
+                <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white">Campaign Reward Tiers</h2>
+                <p class="text-sandMuted text-sm">Preview the supporter rewards launching on Seed&amp;Spark on January 2, 2027.</p>
+            </div>
 
-<!-- Pre-Launch Modal -->
-<div id="notifyModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm px-4">
-    <div class="glass-card max-w-md w-full p-8 rounded-xl border border-amberGlow/50 text-center space-y-5 relative">
-        <button onclick="closeNotifyModal()" class="absolute top-4 right-4 text-sandMuted hover:text-white text-xl">&times;</button>
-        <p class="text-xs uppercase tracking-widest text-amberBright font-semibold">Pre-Launch Notice</p>
-        <h3 class="font-cinzel text-2xl font-bold text-white">Seed&amp;Spark Opens Jan 2, 2027</h3>
-        <p class="text-sm text-zinc-300 leading-relaxed">
-            Our official crowdfunding campaign goes live on <strong>January 2, 2027</strong>. Bookmark <strong>patientzerofilm.com</strong> or follow Gabriel Michael Productions for the direct launch link.
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Tier 1 -->
+                <div class="glass-card p-6 rounded-xl flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <span class="text-amberBright font-cinzel text-2xl font-bold">$5+</span>
+                        <h3 class="font-bold text-white text-lg">Desert Supporter</h3>
+                        <p class="text-sm text-sandMuted leading-relaxed">
+                            Official project updates from set, behind-the-scenes production dispatches, and your name listed on our supporter thank-you page.
+                        </p>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-white/10 text-xs uppercase tracking-widest text-sandMuted">
+                        Opens Jan 2, 2027
+                    </div>
+                </div>
+
+                <!-- Tier 2 -->
+                <div class="glass-card p-6 rounded-xl flex flex-col justify-between border-amberGlow/40">
+                    <div class="space-y-4">
+                        <span class="text-amberBright font-cinzel text-2xl font-bold">$25+</span>
+                        <h3 class="font-bold text-white text-lg">Digital Collector</h3>
+                        <p class="text-sm text-sandMuted leading-relaxed">
+                            High-resolution <strong>Digital Signed Poster</strong> by the director and lead cast, early private streaming link, plus all previous rewards.
+                        </p>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-white/10 text-xs uppercase tracking-widest text-amberBright">
+                        Most Popular
+                    </div>
+                </div>
+
+                <!-- Tier 3 -->
+                <div class="glass-card p-6 rounded-xl flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <span class="text-amberBright font-cinzel text-2xl font-bold">$100+</span>
+                        <h3 class="font-bold text-white text-lg">Premiere Screening</h3>
+                        <p class="text-sm text-sandMuted leading-relaxed">
+                            Two VIP tickets to the Tucson cast &amp; crew premiere screening, Special Thanks credit in the film, Digital Signed Poster, and digital screener.
+                        </p>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-white/10 text-xs uppercase tracking-widest text-sandMuted">
+                        Opens Jan 2, 2027
+                    </div>
+                </div>
+
+                <!-- Tier 4 -->
+                <div class="glass-card p-6 rounded-xl flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <span class="text-amberBright font-cinzel text-2xl font-bold">$500+</span>
+                        <h3 class="font-bold text-white text-lg">Associate Producer</h3>
+                        <p class="text-sm text-sandMuted leading-relaxed">
+                            Official <strong>Associate Producer</strong> screen credit &amp; IMDb credit, invitation to visit set in Tucson, signed physical poster, and VIP screening passes.
+                        </p>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-white/10 text-xs uppercase tracking-widest text-sandMuted">
+                        Limited Availability
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Creative Team -->
+    <section id="team" class="py-24 px-6 border-t border-white/10 bg-slateDark/40">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-14 space-y-3">
+                <p class="text-xs uppercase tracking-[0.3em] text-amberGlow font-semibold">Cast &amp; Crew</p>
+                <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white">The Team</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card p-6 rounded-xl text-center space-y-3">
+                    <p class="text-xs uppercase tracking-widest text-amberBright">Writer &bull; Director &bull; Editor</p>
+                    <h3 class="font-cinzel text-xl font-bold text-white">Gabriel Michael</h3>
+                    <p class="text-sm text-sandMuted leading-relaxed">
+                        Tucson-based independent filmmaker and founder of Gabriel Michael Productions, crafting character-driven desert thrillers and observational drama.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl text-center space-y-3">
+                    <p class="text-xs uppercase tracking-widest text-amberBright">Lead Role &bull; Zoe</p>
+                    <h3 class="font-cinzel text-xl font-bold text-white">Rio Van Zant</h3>
+                    <p class="text-sm text-sandMuted leading-relaxed">
+                        Actress and model anchoring the emotional core of <em>Patient Zero</em> with a raw, grounded performance built on physical presence and subtlety.
+                    </p>
+                </div>
+
+                <div class="glass-card p-6 rounded-xl text-center space-y-3">
+                    <p class="text-xs uppercase tracking-widest text-amberBright">Producer</p>
+                    <h3 class="font-cinzel text-xl font-bold text-white">Bill Booz</h3>
+                    <p class="text-sm text-sandMuted leading-relaxed">
+                        Executive producer and partner at Total Return Life Films, overseeing production strategy, logistics, and festival distribution.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-white/10 text-center space-y-4">
+        <p class="font-cinzel text-lg font-bold tracking-widest text-white">
+            PATIENT <span class="text-amberGlow">ZERO</span>
         </p>
-        <button onclick="closeNotifyModal()" class="w-full py-3 bg-amberGlow hover:bg-amberBright text-obsidian font-bold text-xs uppercase tracking-widest rounded transition">
-            Got It
-        </button>
-    </div>
-</div>
+        <p class="text-xs text-sandMuted uppercase tracking-widest">
+            &copy; 2026&ndash;2027 Gabriel Michael Productions &bull; Filmed in Tucson, Arizona &bull; All Rights Reserved
+        </p>
+    </footer>
 
-<script>
-    function openNotifyModal() {
-        const modal = document.getElementById('notifyModal');
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-    }
-    function closeNotifyModal() {
-        const modal = document.getElementById('notifyModal');
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-    }
-</script>
+    <!-- Pre-Launch Modal -->
+    <div id="notifyModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm px-4">
+        <div class="glass-card max-w-md w-full p-8 rounded-xl border border-amberGlow/50 text-center space-y-5 relative">
+            <button onclick="closeNotifyModal()" class="absolute top-4 right-4 text-sandMuted hover:text-white text-xl">&times;</button>
+            <p class="text-xs uppercase tracking-widest text-amberBright font-semibold">Pre-Launch Notice</p>
+            <h3 class="font-cinzel text-2xl font-bold text-white">Seed&amp;Spark Opens Jan 2, 2027</h3>
+            <p class="text-sm text-zinc-300 leading-relaxed">
+                Our official crowdfunding campaign goes live on <strong>January 2, 2027</strong>. Bookmark <strong>patientzerofilm.com</strong> or follow Gabriel Michael Productions for the direct launch link.
+            </p>
+            <button onclick="closeNotifyModal()" class="w-full py-3 bg-amberGlow hover:bg-amberBright text-obsidian font-bold text-xs uppercase tracking-widest rounded transition">
+                Got It
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function openNotifyModal() {
+            const modal = document.getElementById('notifyModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+        function closeNotifyModal() {
+            const modal = document.getElementById('notifyModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+    </script>
+</body>
+</html>
