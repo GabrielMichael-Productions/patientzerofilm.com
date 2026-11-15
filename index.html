@@ -1,3 +1,6 @@
+HTML
+
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -73,7 +76,7 @@
         </div>
     </nav>
 
-    <!-- Hero Section (Centered & Enlarged Poster) -->
+    <!-- Hero Section -->
     <header class="relative min-h-screen flex flex-col items-center justify-center pt-28 pb-20 px-6 text-center">
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(217,119,6,0.14),transparent_55%)] pointer-events-none"></div>
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_bottom,rgba(153,27,27,0.12),transparent_55%)] pointer-events-none"></div>
@@ -96,7 +99,7 @@
                 </p>
             </div>
 
-            <!-- Centered & Enlarged Poster -->
+            <!-- Poster -->
             <div class="w-full max-w-md sm:max-w-lg mx-auto py-2">
                 <div class="relative w-full rounded-lg overflow-hidden border border-white/15 poster-frame bg-slateDark">
                     <img src="poster.jpg" alt="Patient Zero Official Film Poster" class="w-full h-auto object-cover">
@@ -244,7 +247,7 @@
         </div>
     </section>
 
-    <!-- Backer Perks (Streamlined to 3 Essential Tiers) -->
+    <!-- Backer Perks (Uniform Tiers) -->
     <section id="perks" class="py-24 px-6 border-t border-white/10">
         <div class="max-w-6xl mx-auto">
             <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">
@@ -282,11 +285,8 @@
                     </div>
                 </div>
 
-                <!-- Tier 3 ($100 - Most Popular) -->
-                <div class="glass-card p-8 rounded-xl flex flex-col justify-between border-amberGlow/50 relative shadow-xl shadow-amberGlow/10">
-                    <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-amberGlow text-obsidian px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">
-                        Most Popular
-                    </div>
+                <!-- Tier 3 ($100 - Uniform Style) -->
+                <div class="glass-card p-8 rounded-xl flex flex-col justify-between">
                     <div class="space-y-4">
                         <span class="text-amberBright font-cinzel text-3xl font-bold">$100</span>
                         <h3 class="font-bold text-white text-xl">Collector's Edition</h3>
@@ -294,15 +294,15 @@
                             <strong>Physical Signed Poster</strong>, Special Thanks film credit, plus <strong>4 VIP tickets</strong> to the Tucson premiere screening.
                         </p>
                     </div>
-                    <div class="pt-6 mt-6 border-t border-white/10 text-xs uppercase tracking-widest text-amberBright">
-                        Recommended Support Tier
+                    <div class="pt-6 mt-6 border-t border-white/10 text-xs uppercase tracking-widest text-sandMuted">
+                        Opens Jan 2, 2027
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Email Sign-Up List Section -->
+    <!-- Email Sign-Up List Section (FormSubmit.co Configured) -->
     <section class="py-20 px-6 border-t border-white/10 bg-slateDark/60">
         <div class="max-w-2xl mx-auto text-center space-y-6">
             <p class="text-xs uppercase tracking-[0.3em] text-amberGlow font-semibold">Stay Connected</p>
@@ -310,8 +310,11 @@
             <p class="text-zinc-300 text-sm leading-relaxed font-light">
                 Sign up for exclusive behind-the-scenes dispatches, production updates, and direct launch alerts for <em>Patient Zero</em>.
             </p>
-            <form onsubmit="event.preventDefault(); alert('Thank you for subscribing to Patient Zero updates!');" class="flex flex-col sm:flex-row gap-3 pt-2">
-                <input type="email" required placeholder="Enter your email address..." class="flex-grow px-4 py-3 rounded bg-obsidian border border-white/20 text-white placeholder-sandMuted text-sm focus:outline-none focus:border-amberGlow transition">
+            <form action="https://formsubmit.co/officialpatientzerofilm@gmail.com" method="POST" class="flex flex-col sm:flex-row gap-3 pt-2">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_subject" value="New Patient Zero Mailing List Subscriber!">
+                
+                <input type="email" name="email" required placeholder="Enter your email address..." class="flex-grow px-4 py-3 rounded bg-obsidian border border-white/20 text-white placeholder-sandMuted text-sm focus:outline-none focus:border-amberGlow transition">
                 <button type="submit" class="px-6 py-3 bg-amberGlow hover:bg-amberBright text-obsidian font-bold text-xs uppercase tracking-widest rounded transition shadow">
                     Sign Up
                 </button>
